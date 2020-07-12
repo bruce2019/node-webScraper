@@ -3,6 +3,10 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
 
+const movie = require('./routes/movie.route'); // Imports routes for the products
+const bodyParser = require('body-parser');
+app.use('/movies', movie);
+
 app.get('/scrape', function(req, res){
 
     url = 'http://www.imdb.com/title/tt0468569/';
@@ -23,6 +27,7 @@ app.get('/scrape', function(req, res){
 
             $('.ratingValue').filter(function(){
               var data = $(this);
+              //console.log('data : ',data)
               var rating = data.children().text();
               console.log('rating : ',rating)
             })
